@@ -8,9 +8,9 @@ mongoose.connect(config.DATABASE , { useNewUrlParser: true })
 .then(console.log("CONNECTED to database"))
 .catch(error => console.log(error))
 
-// Brining models from Models
+// Bringing models from Models
 const { User } = require('./models/user');
-
+const { Book } = require('./models/book');
 // app initialization starts here
 const app = express();
 app.use(bodyParser.json());
