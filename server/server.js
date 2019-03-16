@@ -56,8 +56,8 @@ app.post('/book/new', (req, res)=> {
 app.post('/register',(req,res)=>{
     const user = new User(req.body)
     user.save((err, doc)=>{
-        if(err) return res.json({ success: False });
-        res.status(200).jaon({
+        if(err) return res.json({ success: false });
+        res.status(200).json({
             success: true,
             user: doc
         })
