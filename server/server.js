@@ -8,6 +8,8 @@ mongoose.connect(config.DATABASE , { useNewUrlParser: true })
 .then(console.log("CONNECTED to database"))
 .catch(error => console.log(error))
 
+// Brining models from Models
+const { User } = require('./models/user');
 
 // app initialization starts here
 const app = express();
