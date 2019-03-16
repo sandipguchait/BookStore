@@ -61,7 +61,15 @@ app.patch('/book/update',(req,res)=>{
     })
 })
 //DELETE request
-
+app.delete('/book/delete',(req,res)=>{
+    let id = req.query.id;
+    Book.findByIdAndRemove(id,(err, doc)=>{
+        if(err) return res.status(400).send(err);
+        res.json({
+            success: true
+        })
+    })
+})
 //SERVER RUNNING PORT
 const port = process.env.PORT || 3001
 app.listen(port, ()=> {
