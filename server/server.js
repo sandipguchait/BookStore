@@ -62,7 +62,24 @@ app.post('/register',(req,res)=>{
             user: doc
         })
     })
+});
+
+//  LOGIN USER 
+app.post('/login',(req,res)=>{
+    User.findOne({'email': req.body.email }, (err, user)=>{
+        if(!user) return res.json({ 
+            isAuth: false ,
+            message: 'Auth failed, Email not found'
+        });
+        user.comparePassword(req.body.password,(err, isMatch)=>{
+            if(!isMatch) return res.json({
+                isAuth: false,
+                message:'Wrong Password'
+            });
+        })
+    })
 })
+
 
 
 //  UPDATE REQUEST /////////////////////////////////////////////////////

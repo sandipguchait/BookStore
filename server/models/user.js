@@ -34,7 +34,7 @@ const userSchema = mongoose.Schema({
     }
 });
 
-
+// HASHING PASSWORD BEFORE SAVING TO DATABASE
 userSchema.pre('save', function(next){
     var user = this;
 
@@ -51,6 +51,15 @@ userSchema.pre('save', function(next){
     } else {
         next()
     }
-})
+});
+
+//COMPARING PASSWORD ( USER + DATABASE )
+userSchema.methods.comparePassword = function(inputPassowrd,cb){
+    bcrypt.compare(inputPassowrd, this.password, function(err,isMatch){
+        if(err) return cb(err);
+        cb(null, isMatch);
+    })
+}
+
 const User = mongoose.model('User', userSchema);
 module.exports = { User }
