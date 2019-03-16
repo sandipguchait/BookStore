@@ -50,8 +50,16 @@ app.post('/book/new', (req, res)=> {
         })
     })
 })
-//UPDATE request
-
+//UPDATE request using PATCH
+app.patch('/book/update',(req,res)=>{
+    Book.findByIdAndUpdate(req.body._id, req.body, { new: true },(err,doc)=>{
+        if(err) return res.status(400).send(err);
+        res.json({
+            success: true,
+            doc
+        })
+    })
+})
 //DELETE request
 
 //SERVER RUNNING PORT
