@@ -16,7 +16,28 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-//GET request
+//GET request to find a book with id
+app.get('/book', (req, res)=>{
+    let id = req.query.id;
+    Book.findById(id, (err, doc)=>{
+        if(err) return res.status(400).send(err);
+        res.send(doc)
+    })
+})
+
+// GET request to find a book by sort,limit,and skip values inside the url
+app.get('/books',(req,res)=> {
+    //localhost:3001/books?skip=3&limit=2&order=asc
+    let skip = parseInt(req.query.skip);
+    let limit = parseInt(req.query.limit);
+    let order = req.query.order;
+
+    //ORDER = asc || desc
+    Book.find().skip(skip).sort({_id: order}).limit(limit).exec((err, doc)=>{
+        if(err) return res.status(400).send(err);
+        res.send(doc)
+    })
+})
 
 //POST request
 app.post('/book/new', (req, res)=> {
@@ -33,8 +54,7 @@ app.post('/book/new', (req, res)=> {
 
 //DELETE request
 
-
-
+//SERVER RUNNING PORT
 const port = process.env.PORT || 3001
 app.listen(port, ()=> {
     console.log(`SERVER Running on ${port}`)
