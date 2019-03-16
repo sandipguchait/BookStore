@@ -25,6 +25,7 @@ app.get('/book', (req, res)=>{
     })
 })
 
+//   GET REQUEST /////////////////////////////////////////////////////////
 // GET request to find a book by sort,limit,and skip values inside the url
 app.get('/books',(req,res)=> {
     //localhost:3001/books?skip=3&limit=2&order=asc
@@ -39,7 +40,7 @@ app.get('/books',(req,res)=> {
     })
 })
 
-//POST request
+// POST REQUEST //////////////////////////////////////////////////////////
 app.post('/book/new', (req, res)=> {
     const book = new Book(req.body)
     book.save((err, doc)=>{
@@ -49,8 +50,22 @@ app.post('/book/new', (req, res)=> {
             bookId: doc._id
         })
     })
+});
+
+// REGISTER USER
+app.post('/register',(req,res)=>{
+    const user = new User(req.body)
+    user.save((err, doc)=>{
+        if(err) return res.json({ success: False });
+        res.status(200).jaon({
+            success: true,
+            user: doc
+        })
+    })
 })
-//UPDATE request using PATCH
+
+
+//  UPDATE REQUEST /////////////////////////////////////////////////////
 app.patch('/book/update',(req,res)=>{
     Book.findByIdAndUpdate(req.body._id, req.body, { new: true },(err,doc)=>{
         if(err) return res.status(400).send(err);
@@ -60,7 +75,7 @@ app.patch('/book/update',(req,res)=>{
         })
     })
 })
-//DELETE request
+//  DELETE REQUEST //////////////////////////////////////////////////////
 app.delete('/book/delete',(req,res)=>{
     let id = req.query.id;
     Book.findByIdAndRemove(id,(err, doc)=>{
@@ -70,6 +85,9 @@ app.delete('/book/delete',(req,res)=>{
         })
     })
 })
+
+
+
 //SERVER RUNNING PORT
 const port = process.env.PORT || 3001
 app.listen(port, ()=> {
