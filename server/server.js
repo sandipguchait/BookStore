@@ -38,7 +38,22 @@ app.get('/books',(req,res)=> {
         if(err) return res.status(400).send(err);
         res.send(doc)
     })
-})
+});
+
+// GETTING DETAILS ABOUT The reviewer
+app.get('/reviewer',(req,res)=>{
+    let id = req.query.id;
+    User.findById(id, (err,doc)=>{
+        if(err) return res.status(400).send(err);
+        res.json({
+            email: doc.email,
+            firstname: doc.firstname,
+            lastname: doc.lastname
+        })
+    })
+});
+
+
 
 // POST REQUEST //////////////////////////////////////////////////////////
 app.post('/book/new', (req, res)=> {
@@ -71,11 +86,13 @@ app.post('/login',(req,res)=>{
             isAuth: false ,
             message: 'Auth failed, Email not found'
         });
+        // Comparing password with the Database password
         user.comparePassword(req.body.password,(err, isMatch)=>{
             if(!isMatch) return res.json({
                 isAuth: false,
                 message:'Wrong Password'
             });
+            // IF password mathes then we set a token/cookie to get access to it on Client side
             user.generateToken((err, user)=>{
                 if(err) return status(400).send(err);
                 res.cookie('auth', user.token ).json({
