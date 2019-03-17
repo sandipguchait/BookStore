@@ -25,7 +25,7 @@ app.get('/book', (req, res)=>{
     })
 })
 
-//   GET REQUEST /////////////////////////////////////////////////////////
+//   GET REQUEST //////////////////////////////////////////////////////////////////////////////////////////////////
 // GET request to find a book by sort,limit,and skip values inside the url
 app.get('/books',(req,res)=> {
     //localhost:3001/books?skip=3&limit=2&order=asc
@@ -53,9 +53,15 @@ app.get('/reviewer',(req,res)=>{
     })
 });
 
+// GETTING ALL USERS FROM DATABASE
+app.get('/users',(req,res)=>{
+    User.find({},(err, users)=>{
+        if(err) return res.status(400).send(err);
+        res.status(200).send(users)
+    })
+})
 
-
-// POST REQUEST //////////////////////////////////////////////////////////
+// POST REQUEST ////////////////////////////////////////////////////////////////////////////////////////////
 app.post('/book/new', (req, res)=> {
     const book = new Book(req.body)
     book.save((err, doc)=>{
@@ -107,7 +113,7 @@ app.post('/login',(req,res)=>{
 
 
 
-//  UPDATE REQUEST /////////////////////////////////////////////////////
+//  UPDATE REQUEST //////////////////////////////////////////////////////////////////////////////////////////////////
 app.patch('/book/update',(req,res)=>{
     Book.findByIdAndUpdate(req.body._id, req.body, { new: true },(err,doc)=>{
         if(err) return res.status(400).send(err);
@@ -117,7 +123,9 @@ app.patch('/book/update',(req,res)=>{
         })
     })
 })
-//  DELETE REQUEST //////////////////////////////////////////////////////
+
+
+//  DELETE REQUEST //////////////////////////////////////////////////////////////////////////////////////////////////
 app.delete('/book/delete',(req,res)=>{
     let id = req.query.id;
     Book.findByIdAndRemove(id,(err, doc)=>{
