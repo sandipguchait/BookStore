@@ -61,5 +61,10 @@ userSchema.methods.comparePassword = function(inputPassowrd,cb){
     })
 }
 
+// GENERATING TOKEN WHEN USER LOGS IN
+userSchema.methods.generateToken = function(){
+
+}
+
 const User = mongoose.model('User', userSchema);
 module.exports = { User }
