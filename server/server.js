@@ -75,7 +75,10 @@ app.get('/user_posts',(req,res)=>{
 
 // LOGOUT FEATURE USING AUTH MIDDLEWARE
 app.get('/logout', auth,(req,res)=>{
-    res.send(req.user)
+    req.user.deleteToken(req.token, (err, user)=>{
+        if(err) return res.status(400).send(err);
+        res.sendStatus(200)
+    })
 })
 
 // POST REQUEST ////////////////////////////////////////////////////////////////////////////////////////////
