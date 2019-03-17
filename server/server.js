@@ -11,6 +11,10 @@ mongoose.connect(config.DATABASE , { useNewUrlParser: true })
 // Bringing models from Models
 const { User } = require('./models/user');
 const { Book } = require('./models/book');
+
+//From Middleware
+const { auth } = require('./middleware/auth');
+
 // app initialization starts here
 const app = express();
 app.use(bodyParser.json());
@@ -67,6 +71,11 @@ app.get('/user_posts',(req,res)=>{
         if(err) return res.status(400).send(err);
         res.send(docs)
     })
+});
+
+// LOGOUT FEATURE USING AUTH MIDDLEWARE
+app.get('/logout', auth,(req,res)=>{
+    res.send(req.user)
 })
 
 // POST REQUEST ////////////////////////////////////////////////////////////////////////////////////////////
