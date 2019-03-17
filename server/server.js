@@ -61,7 +61,7 @@ app.get('/users',(req,res)=>{
     })
 });
 
-// GETTING ALL BOOK OF BOOK OWNER using OWNER ID
+// GETTING ALL BOOK written by a BOOK OWNER using OWNER ID
 app.get('/user_posts',(req,res)=>{
     Book.find({ownerId: req.query.user}).exec((err, docs)=>{
         if(err) return res.status(400).send(err);
