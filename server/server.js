@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 //GET request to find a book with id
-app.get('/book', (req, res)=>{
+app.get('/api//book', (req, res)=>{
     let id = req.query.id;
     Book.findById(id, (err, doc)=>{
         if(err) return res.status(400).send(err);
@@ -31,7 +31,7 @@ app.get('/book', (req, res)=>{
 
 //   GET REQUEST //////////////////////////////////////////////////////////////////////////////////////////////////
 // GET request to find a book by sort,limit,and skip values inside the url
-app.get('/books',(req,res)=> {
+app.get('/api/books',(req,res)=> {
     //localhost:3001/books?skip=3&limit=2&order=asc
     let skip = parseInt(req.query.skip);
     let limit = parseInt(req.query.limit);
@@ -45,7 +45,7 @@ app.get('/books',(req,res)=> {
 });
 
 // GETTING DETAILS ABOUT The reviewer
-app.get('/reviewer',(req,res)=>{
+app.get('/api/reviewer',(req,res)=>{
     let id = req.query.id;
     User.findById(id, (err,doc)=>{
         if(err) return res.status(400).send(err);
@@ -58,7 +58,7 @@ app.get('/reviewer',(req,res)=>{
 });
 
 // GETTING ALL USERS FROM DATABASE
-app.get('/users',(req,res)=>{
+app.get('/api/users',(req,res)=>{
     User.find({},(err, users)=>{
         if(err) return res.status(400).send(err);
         res.status(200).send(users)
@@ -66,13 +66,23 @@ app.get('/users',(req,res)=>{
 });
 
 // GETTING ALL BOOK written by a BOOK OWNER using OWNER ID
-app.get('/user_posts',(req,res)=>{
+app.get('/api/user_posts',(req,res)=>{
     Book.find({ownerId: req.query.user}).exec((err, docs)=>{
         if(err) return res.status(400).send(err);
         res.send(docs)
     })
 });
 
+// CHECK USER LOGGED IN OR NOT || if logged in then can access certain routes
+app.get('/api/auth', auth, (req, res)=>{
+    res.json({
+        isAuth: true,
+        id: req.user._id,
+        email: req.user.email,
+        firstname: req.user.firstname,
+        lastname: req.user.lastname
+    })
+})
 // LOGOUT FEATURE USING AUTH MIDDLEWARE
 app.get('/logout', auth,(req,res)=>{
     req.user.deleteToken(req.token, (err, user)=>{
@@ -82,7 +92,7 @@ app.get('/logout', auth,(req,res)=>{
 })
 
 // POST REQUEST ////////////////////////////////////////////////////////////////////////////////////////////
-app.post('/book/new', (req, res)=> {
+app.post('/api/book/new', (req, res)=> {
     const book = new Book(req.body)
     book.save((err, doc)=>{
         if(err) return res.status(400).send(err);
@@ -94,7 +104,7 @@ app.post('/book/new', (req, res)=> {
 });
 
 // REGISTER USER
-app.post('/register',(req,res)=>{
+app.post('/api/register',(req,res)=>{
     const user = new User(req.body)
     user.save((err, doc)=>{
         if(err) return res.json({ success: false });
@@ -106,7 +116,7 @@ app.post('/register',(req,res)=>{
 });
 
 //  LOGIN USER 
-app.post('/login',(req,res)=>{
+app.post('/api/login',(req,res)=>{
     User.findOne({'email': req.body.email }, (err, user)=>{
         if(!user) return res.json({ 
             isAuth: false ,
@@ -134,7 +144,7 @@ app.post('/login',(req,res)=>{
 
 
 //  UPDATE REQUEST //////////////////////////////////////////////////////////////////////////////////////////////////
-app.patch('/book/update',(req,res)=>{
+app.patch('/api/book/update',(req,res)=>{
     Book.findByIdAndUpdate(req.body._id, req.body, { new: true },(err,doc)=>{
         if(err) return res.status(400).send(err);
         res.json({
@@ -146,7 +156,7 @@ app.patch('/book/update',(req,res)=>{
 
 
 //  DELETE REQUEST //////////////////////////////////////////////////////////////////////////////////////////////////
-app.delete('/book/delete',(req,res)=>{
+app.delete('/api/book/delete',(req,res)=>{
     let id = req.query.id;
     Book.findByIdAndRemove(id,(err, doc)=>{
         if(err) return res.status(400).send(err);
