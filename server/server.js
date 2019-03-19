@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 //GET request to find a book with id
-app.get('/api//book', (req, res)=>{
+app.get('/api/book', (req, res)=>{
     let id = req.query.id;
     Book.findById(id, (err, doc)=>{
         if(err) return res.status(400).send(err);
