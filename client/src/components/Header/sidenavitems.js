@@ -28,7 +28,7 @@ const SideNavItems = (props) => {
         },
         {
             type: "navItem",
-            icon:"fa-sign-in",
+            icon:"file-text-o",
             text:"Login",
             link:"/login",
             restricted: false
@@ -49,7 +49,7 @@ const SideNavItems = (props) => {
         },
         {
             type: "navItem",
-            icon:"fa-sign-out",
+            icon:"file-text-o",
             text:"Logout",
             link:"/user/logout",
             restricted: false
