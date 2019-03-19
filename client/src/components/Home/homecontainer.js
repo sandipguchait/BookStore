@@ -7,13 +7,13 @@ import BookItems from '../../WIDGETSUI/bookitem';
 class HomeContainer extends Component {
 
     componentWillMount = () => {
-      this.props.getBooks(4,0,'asc')
+      this.props.getBooks(10,0,'asc')
     }
 
     renderItems = (books) => {
         return books.bookList ?     
             books.bookList.map(item => (
-                <BookItems key={item._id} />
+                <BookItems key={item._id} {...item} />
             ))
         : null
     } 
