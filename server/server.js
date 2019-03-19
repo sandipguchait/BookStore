@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+var cors = require('cors');
 const mongoose = require('mongoose');
 const config = require('./config/config').get(process.env.NODE_ENV)
 
@@ -18,6 +19,7 @@ const { auth } = require('./middleware/auth');
 // app initialization starts here
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 app.use(cookieParser());
 
 //GET request to find a book with id
