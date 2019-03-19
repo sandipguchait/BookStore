@@ -9,7 +9,7 @@ class Header extends Component {
     state = {
         showNav: false
     }
-
+    // closes the navigation panel on click on sides on the navbar
     onHideNav = () => {
         this.setState({ showNav: false })
     }
@@ -27,6 +27,7 @@ class Header extends Component {
                         }}
                     />
                 </div>
+                {/* Navbar compoenent to close the Navbar */}
                 <Nav showNav={this.state.showNav} onHideNav={()=>this.onHideNav()}/>
                     <Link to="/" className="logo">
                         The BookStore
