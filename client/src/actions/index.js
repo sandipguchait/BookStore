@@ -16,3 +16,25 @@ export const getBooks = ( limit = 10 , start = 0 , order = 'asc', bookList = '')
     })
 }
 
+export const getBookWithReviewer = (id) => async dispatch => {
+     
+    await bookAPI.get(`/api/book?id=${id}`)
+        .then(({ data }) => {
+            let book = data;
+            
+            bookAPI.get(`/api/reviewer?id=${book.ownerId}`)
+                .then(({ data })=> {
+                    let response = {
+                        book,
+                        reviewer: data
+                    }
+                    console.log(response)
+                    dispatch({
+                        type: 'GET_BOOK_WITH_REVIEWER',
+                        payload: response
+                    })
+                })
+        })
+         
+}
+
