@@ -28,7 +28,6 @@ export const getBookWithReviewer = (id) => async dispatch => {
                         book,
                         reviewer: data
                     }
-                    console.log(response)
                     dispatch({
                         type: 'GET_BOOK_WITH_REVIEWER',
                         payload: response

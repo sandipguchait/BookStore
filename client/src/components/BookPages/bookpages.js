@@ -9,6 +9,7 @@ class BookView extends Component {
     }
 
     render() {
+        console.log(this.props)
         return (
             <div>BookView</div>
         );
@@ -16,7 +17,6 @@ class BookView extends Component {
 }
 
 const mapStateToProps = ( state ) => {
-    console.log(state)
    return {
     books: state.books
    } 
