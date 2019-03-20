@@ -1,8 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-const BookItems = (props) => {
+
+const BookItems = (item) => {
     return (
-        <div>Bookssss</div>
+        <Link to={`/books/${item._id}`} className="book_item">
+            <div className="book_header">
+                <h2>{item.name}</h2>
+            </div>
+        </Link>
     );
 };
 
