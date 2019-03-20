@@ -7,7 +7,7 @@ import BookItems from '../../WIDGETSUI/bookitem';
 class HomeContainer extends Component {
 
     componentWillMount = () => {
-      this.props.getBooks(10,0,'asc')
+      this.props.getBooks(2,0,'asc')
     }
 
     renderItems = (books) => {
@@ -18,11 +18,18 @@ class HomeContainer extends Component {
         : null
     } 
 
+    loadmore = () => {
+        let count = this.props.books.bookList.length;
+        this.props.getBooks(2, count,'asc', this.props.books.bookList )
+    }
+
     render() {
-        console.log(this.props.books)
         return (
             <div>
                 {this.renderItems(this.props.books)}
+                <div className="loadmore" onClick={this.loadmore}>
+                    Load More
+                </div>
             </div>
         );
     }
