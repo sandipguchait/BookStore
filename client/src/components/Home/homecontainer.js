@@ -19,8 +19,10 @@ class HomeContainer extends Component {
     } 
 
     loadmore = () => {
-        let count = this.props.books.bookList.length;
-        this.props.getBooks(2, count,'asc', this.props.books.bookList )
+        if(this.props.books.bookList) {
+            let count = this.props.books.bookList.length;
+            this.props.getBooks(2, count,'asc', this.props.books.bookList )
+        }
     }
 
     render() {

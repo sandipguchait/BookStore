@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Home from './components/Home/home';
 import Layout from './HOC/layout';
+import BookView from './components/BookPages/bookpages';
 
 
 const Routes = () => {
@@ -10,6 +11,7 @@ const Routes = () => {
         <Layout>
             <Switch>
                 <Route path="/" exact component={Home} />
+                <Route path="/books/:id" component={BookView} />
             </Switch>
         </Layout>
     );

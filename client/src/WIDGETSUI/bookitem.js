@@ -8,6 +8,7 @@ const BookItems = (item) => {
             <div className="book_header">
                 <h2>{item.name}</h2>
             </div>
+            <img src={item.imageURL} alt={item.name} width="100" height="50" align="right"/>
             <div className="book_items">
                 <div className="book_author">{item.author}</div>
                 <div className="book_bubble">
