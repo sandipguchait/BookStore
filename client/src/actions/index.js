@@ -1,5 +1,6 @@
 import bookAPI from '../API/bookAPI';
 
+// Fetching all List of Books
 export const getBooks = ( limit = 10 , start = 0 , order = 'asc', bookList = '') => async dispatch => {
     
     const request = await bookAPI.get(`/api/books?limit=${limit}&skip=${start}&order=${order}`)
@@ -16,6 +17,7 @@ export const getBooks = ( limit = 10 , start = 0 , order = 'asc', bookList = '')
     })
 }
 
+// getting book of a reviewer with Owner ID
 export const getBookWithReviewer = (id) => async dispatch => {
      
     await bookAPI.get(`/api/book?id=${id}`)
