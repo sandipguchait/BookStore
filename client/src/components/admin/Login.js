@@ -22,7 +22,9 @@ class Login extends Component {
         event.preventDefault();
         this.props.loginUser(this.state)
     }
-    
+
+    // This takes in the coming data from state as props and check 
+    // whether the isAuth of login state is true, if true then push them to different Route
     componentWillReceiveProps(nextProps) {
         if(nextProps.user.login.isAuth){
             this.props.history.push('/user')
