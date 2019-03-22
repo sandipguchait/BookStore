@@ -22,6 +22,12 @@ class Login extends Component {
         event.preventDefault();
         this.props.loginUser(this.state)
     }
+    
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.user.login.isAuth){
+            this.props.history.push('/user')
+        }
+    }
 
     // VALIDATING THE FORM
     validateForm =()=> {
@@ -62,6 +68,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = ( state ) => {
+    console.log(state)
     return {
         user: state.user
     }
