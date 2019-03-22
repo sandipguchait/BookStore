@@ -36,6 +36,15 @@ export const getBookWithReviewer = (id) => async dispatch => {
                     })
                 })
         })
-         
+}
+
+export const clearBookReviewer = () => {
+    return {
+        type: 'CLEAR_BOOK_REVIEWER',
+        payload: {
+            book: {},
+            reviewer: {}
+        }
+    }
 }
 
