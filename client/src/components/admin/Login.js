@@ -40,6 +40,7 @@ class Login extends Component {
 
 
     render() {
+        const { user } = this.props;
         return (
             <div className="rl_container">
                 <form onSubmit={this.submitForm}>
@@ -63,6 +64,13 @@ class Login extends Component {
                         />
                     </div>
                     <button type="submit" disabled={this.validateForm()}>Log in</button>
+                        <div className="error">
+                            {
+                                user.login ? 
+                                    <div>{user.login.message}</div>
+                                : null
+                            }
+                        </div>
                 </form>
             </div>
         );
