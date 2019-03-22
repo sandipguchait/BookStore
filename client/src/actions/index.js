@@ -38,6 +38,7 @@ export const getBookWithReviewer = (id) => async dispatch => {
         })
 }
 
+// clearing previous State from the redux store
 export const clearBookReviewer = () => {
     return {
         type: 'CLEAR_BOOK_REVIEWER',

@@ -8,6 +8,7 @@ class BookView extends Component {
         this.props.getBookWithReviewer(this.props.match.params.id)
     }
 
+    // Using to clear previous state from redux store
     componentWillUnmount(){
         this.props.clearBookReviewer()
     }
