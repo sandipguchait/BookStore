@@ -49,3 +49,15 @@ export const clearBookReviewer = () => {
     }
 }
 
+
+// USER ////////////////////////////////////////////
+
+export const loginUser = ({ email, password }) => async dispatch => {
+    const request = bookAPI.post('/api/login', { email, password })
+        .then(response => response.data)
+    dispatch({
+        type: 'LOGIN_USER',
+        payload: request
+    })
+}
+
