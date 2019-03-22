@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux0';
-
+import { connect } from 'react-redux';
+import { authCheck } from '../actions/index';
 
 export default function ( ComposedClass ) {
     class AuthenticationCheck extends Component {
@@ -9,12 +9,20 @@ export default function ( ComposedClass ) {
             loading: true
         }
 
+        componentWillMount(){
+            this.props.authCheck()
+        }
+
+        componentWillReceiveProps(nextProps){
+            this.setState({ loading: false })
+        }
+
          render(){
              if(this.state.loading) {
                  return <div className="loader">Loading..</div>
              }
              return (
-                 <ComposedClass/>
+                 <ComposedClass {...this.props}/>
              )
          }
     }
@@ -25,5 +33,5 @@ export default function ( ComposedClass ) {
         }
     }
 
-    return connect(mapStateToProps) (AuthenticationCheck)
+    return connect(mapStateToProps, { authCheck }) (AuthenticationCheck)
 }

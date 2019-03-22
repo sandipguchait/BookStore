@@ -61,3 +61,12 @@ export const loginUser = ({ email, password }) => async dispatch => {
     })
 }
 
+export const authCheck = () => async dispatch => {
+    const request = bookAPI.get('/api/auth')
+            .then(response => response.data )
+            dispatch({
+                type: 'USER_AUTH',
+                payload: request
+            })
+}
+
